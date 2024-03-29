@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RequestMapping
 public class TestController {
-    @PostMapping("/test")
+    @PostMapping("/public/test")
     public String test(){
         return "test1";
     }

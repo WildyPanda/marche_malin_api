@@ -1,5 +1,6 @@
 package com.epsi.marche_malin_api.controller;
 
+import com.epsi.marche_malin_api.dtos.GetUserDTO;
 import com.epsi.marche_malin_api.dtos.UpdateEmailDTO;
 import com.epsi.marche_malin_api.dtos.UpdatePhoneNbDTO;
 import com.epsi.marche_malin_api.dtos.UpdateUsernameDTO;
@@ -8,18 +9,35 @@ import com.epsi.marche_malin_api.repositories.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class UsersController {
     @Autowired
     private UsersRepo usersRepo;
+
+    @GetMapping("/get")
+    public GetUserDTO getUser(){
+        JwtAuthenticationToken authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        Optional<Users> usersById = usersRepo.findById(authentication.getToken().getClaim("user_id"));
+        if(usersById.isEmpty()){
+            String reg = Register();
+            usersById = usersRepo.findById(authentication.getToken().getClaim("user_id"));
+        }
+        if(usersById.isPresent()){
+            Users user = usersById.get();
+            GetUserDTO res = new GetUserDTO();
+            res.setUsername(user.getUsername());
+            res.setEmail(user.getEmail());
+            res.setPhoneNb(user.getPhoneNb());
+            return res;
+        }
+        return null;
+    }
 
     @PostMapping("/register")
     public String Register(){
