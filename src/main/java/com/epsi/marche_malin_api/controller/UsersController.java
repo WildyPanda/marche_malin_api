@@ -39,6 +39,9 @@ public class UsersController {
 
     @PostMapping("/UpdateUsername")
     public String UpdateUsername(@RequestBody UpdateUsernameDTO dto){
+        if(dto.getUsername() == null){
+            return "The username must be present in the body";
+        }
         JwtAuthenticationToken authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         Optional<Users> usersById = usersRepo.findById(authentication.getToken().getClaim("user_id"));
         if(usersById.isEmpty()){
@@ -64,6 +67,9 @@ public class UsersController {
 
     @PostMapping("/UpdatePhoneNb")
     public String UpdatePhoneNb(@RequestBody UpdatePhoneNbDTO dto){
+        if(dto.getPhoneNb() == null){
+            return "The phoneNb must be present in the body";
+        }
         JwtAuthenticationToken authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         Optional<Users> usersById = usersRepo.findById(authentication.getToken().getClaim("user_id"));
         if(usersById.isEmpty()){
@@ -86,6 +92,9 @@ public class UsersController {
 
     @PostMapping("/UpdateEmail")
     public String UpdateEmail(@RequestBody UpdateEmailDTO dto){
+        if(dto.getEmail() == null){
+            return "The email must be present in the body";
+        }
         JwtAuthenticationToken authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         Optional<Users> usersById = usersRepo.findById(authentication.getToken().getClaim("user_id"));
         if(usersById.isEmpty()){
