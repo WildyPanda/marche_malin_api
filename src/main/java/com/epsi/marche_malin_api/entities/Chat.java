@@ -17,7 +17,7 @@ import lombok.Setter;
 public class Chat {
     @Id
     @Column(name = "id_chat")
-    private int idChat;
+    private Long idChat;
 
     @ManyToOne
     @JoinColumn(name = "user1")

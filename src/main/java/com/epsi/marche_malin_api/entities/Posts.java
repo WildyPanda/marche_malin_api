@@ -16,7 +16,7 @@ import lombok.Setter;
 public class Posts {
     @Id
     @Column(name = "id_post")
-    private int idPost;
+    private Long idPost;
 
     @Column(name = "title")
     private String title;

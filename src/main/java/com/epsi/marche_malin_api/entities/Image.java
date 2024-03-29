@@ -14,7 +14,7 @@ import lombok.Setter;
 public class Image {
     @Id
     @Column(name = "id_image")
-    private int idImage;
+    private Long idImage;
 
     @Lob
     @Column(name = "image", columnDefinition = "BLOB")

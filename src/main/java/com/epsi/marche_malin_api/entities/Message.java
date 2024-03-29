@@ -14,7 +14,7 @@ import lombok.Setter;
 public class Message {
     @Id
     @Column(name="id_message")
-    private int idMessage;
+    private Long idMessage;
 
     @Column(name = "message")
     private String message;
