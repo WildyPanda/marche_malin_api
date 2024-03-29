@@ -1,11 +1,15 @@
 package com.epsi.marche_malin_api.controller;
 
+import com.epsi.marche_malin_api.dtos.UpdateEmailDTO;
+import com.epsi.marche_malin_api.dtos.UpdatePhoneNbDTO;
+import com.epsi.marche_malin_api.dtos.UpdateUsernameDTO;
 import com.epsi.marche_malin_api.entities.Users;
 import com.epsi.marche_malin_api.repositories.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +22,7 @@ public class UsersController {
     private UsersRepo usersRepo;
 
     @PostMapping("/register")
-    public String register(){
+    public String Register(){
         JwtAuthenticationToken authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         Optional<Users> usersById = usersRepo.findById(authentication.getToken().getClaim("user_id"));
         Optional<Users> usersByEmail = usersRepo.findByEmail(authentication.getToken().getClaim("email"));
@@ -31,5 +35,77 @@ public class UsersController {
             return "Correctly registered";
         }
         return "The user exist";
+    }
+
+    @PostMapping("/UpdateUsername")
+    public String UpdateUsername(@RequestBody UpdateUsernameDTO dto){
+        JwtAuthenticationToken authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        Optional<Users> usersById = usersRepo.findById(authentication.getToken().getClaim("user_id"));
+        if(usersById.isEmpty()){
+            String reg = Register();
+            if(!reg.equals("Correctly registered")){
+                return "Error with the user, try using /user/register for more informations";
+            }
+            usersById = usersRepo.findById(authentication.getToken().getClaim("user_id"));
+        }
+        if(usersById.isPresent()){
+            if(usersRepo.findByUsername(dto.getUsername()).isPresent()){
+                return "Username is already used";
+            }
+            Users user = usersById.get();
+            user.setUsername(dto.getUsername());
+            usersRepo.save(user);
+            return "Username correctly updated";
+        }
+        else{
+            return "Error with the user, try using /user/register for more informations";
+        }
+    }
+
+    @PostMapping("/UpdatePhoneNb")
+    public String UpdatePhoneNb(@RequestBody UpdatePhoneNbDTO dto){
+        JwtAuthenticationToken authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        Optional<Users> usersById = usersRepo.findById(authentication.getToken().getClaim("user_id"));
+        if(usersById.isEmpty()){
+            String reg = Register();
+            if(!reg.equals("Correctly registered")){
+                return "Error with the user, try using /user/register for more informations";
+            }
+            usersById = usersRepo.findById(authentication.getToken().getClaim("user_id"));
+        }
+        if(usersById.isPresent()){
+            Users user = usersById.get();
+            user.setPhoneNb(dto.getPhoneNb());
+            usersRepo.save(user);
+            return "Phone number correctly updated";
+        }
+        else{
+            return "Error with the user, try using /user/register for more informations";
+        }
+    }
+
+    @PostMapping("/UpdateEmail")
+    public String UpdateEmail(@RequestBody UpdateEmailDTO dto){
+        JwtAuthenticationToken authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        Optional<Users> usersById = usersRepo.findById(authentication.getToken().getClaim("user_id"));
+        if(usersById.isEmpty()){
+            String reg = Register();
+            if(!reg.equals("Correctly registered")){
+                return "Error with the user, try using /user/register for more informations";
+            }
+            usersById = usersRepo.findById(authentication.getToken().getClaim("user_id"));
+        }
+        if(usersById.isPresent()){
+            if(usersRepo.findByEmail(dto.getEmail()).isPresent()){
+                return "Email is already used";
+            }
+            Users user = usersById.get();
+            user.setEmail(dto.getEmail());
+            usersRepo.save(user);
+            return "Email correctly updated";
+        }
+        else{
+            return "Error with the user, try using /user/register for more informations";
+        }
     }
 }

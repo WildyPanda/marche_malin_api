@@ -1,10 +1,7 @@
 package com.epsi.marche_malin_api.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
@@ -14,12 +11,13 @@ import lombok.Setter;
 public class Users {
     @Id
     @Column(name = "uuid", nullable = false)
+    @Setter(AccessLevel.NONE)
     private String uuid;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "username", nullable = true)
+    @Column(name = "username", nullable = true, unique = true)
     private String username;
 
     @Column(name = "phone_nb", nullable = true)
