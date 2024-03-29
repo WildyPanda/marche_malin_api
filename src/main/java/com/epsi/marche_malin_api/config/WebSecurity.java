@@ -13,7 +13,7 @@ public class WebSecurity {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authz) ->
-                authz.requestMatchers("all/**").anonymous()
+                authz
                         .anyRequest().authenticated());
         http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
         return http.build();
