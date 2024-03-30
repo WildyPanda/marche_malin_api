@@ -13,6 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Posts {
     @Id
+    @GeneratedValue
     @Column(name = "id_post")
     private Long idPost;
 

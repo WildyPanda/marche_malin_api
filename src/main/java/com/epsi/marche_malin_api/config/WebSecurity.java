@@ -18,7 +18,11 @@ public class WebSecurity {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         // add here all publics patterns
-        return (web) -> web.ignoring().requestMatchers("/public/**", "/posts/public/**", "/images/public/**");
+        return (web) -> web.ignoring().requestMatchers(
+                "/public/**",
+                "/posts/public/**",
+                "/category/public/**",
+                "/images/public/**");
     }
 
     @Bean

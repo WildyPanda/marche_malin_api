@@ -13,11 +13,11 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetPostDTO {
-    private String title;
-    private Users user;
-    private List<Image> images;
-    private String message;
-    private List<String> tags;
-    private List<String> categories;
+public class CreatePostDTO {
+    String title;
+    Users user;
+    List<byte[]> images;
+    String message;
+    List<String> tags;
+    List<String> categories;
 }
