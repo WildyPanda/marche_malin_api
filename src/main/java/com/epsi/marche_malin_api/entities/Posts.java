@@ -1,8 +1,6 @@
 package com.epsi.marche_malin_api.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,9 +16,13 @@ public class Posts {
     @Column(name = "id_post")
     private Long idPost;
 
+    @ManyToOne
+    @JoinColumn(name = "id_user", nullable = false)
+    private Users user;
+
     @Column(name = "title")
     private String title;
 
-    @Column(name = "message")
+    @Column(name = "message", columnDefinition = "TEXT")
     private String message;
 }

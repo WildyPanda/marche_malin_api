@@ -20,7 +20,7 @@ public class PostCategory {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public class PostCategoryId{
+    static public class PostCategoryId{
         @ManyToOne
         @JoinColumn(name = "post")
         private Posts post;

@@ -1,6 +1,5 @@
 package com.epsi.marche_malin_api.controller;
 
-import com.epsi.marche_malin_api.dtos.GetUserDTO;
 import com.epsi.marche_malin_api.dtos.UpdateEmailDTO;
 import com.epsi.marche_malin_api.dtos.UpdatePhoneNbDTO;
 import com.epsi.marche_malin_api.dtos.UpdateUsernameDTO;
@@ -21,7 +20,7 @@ public class UsersController {
     private UsersRepo usersRepo;
 
     @GetMapping("/get")
-    public GetUserDTO getUser(){
+    public Users getUser(){
         JwtAuthenticationToken authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         Optional<Users> usersById = usersRepo.findById(authentication.getToken().getClaim("user_id"));
         if(usersById.isEmpty()){
@@ -29,12 +28,7 @@ public class UsersController {
             usersById = usersRepo.findById(authentication.getToken().getClaim("user_id"));
         }
         if(usersById.isPresent()){
-            Users user = usersById.get();
-            GetUserDTO res = new GetUserDTO();
-            res.setUsername(user.getUsername());
-            res.setEmail(user.getEmail());
-            res.setPhoneNb(user.getPhoneNb());
-            return res;
+            return usersById.get();
         }
         return null;
     }

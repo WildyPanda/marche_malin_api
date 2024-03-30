@@ -20,7 +20,7 @@ public class PostTag {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public class PostTagId{
+    static public class PostTagId{
         @ManyToOne
         @JoinColumn(name = "post")
         private Posts post;

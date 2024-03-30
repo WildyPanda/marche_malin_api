@@ -13,11 +13,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Image {
     @Id
+    @GeneratedValue
     @Column(name = "id_image")
     private Long idImage;
 
     @Lob
-    @Column(name = "image", columnDefinition = "BLOB")
+    @Column(name = "image", columnDefinition = "MEDIUMBLOB")
     private byte[] image;
 
     @ManyToOne
