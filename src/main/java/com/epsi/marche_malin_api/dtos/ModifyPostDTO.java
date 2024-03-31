@@ -11,13 +11,13 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class GetPostDTO {
+@AllArgsConstructor
+public class ModifyPostDTO {
     private Long id_post;
     private String title;
     private Users user;
-    private List<Image> images;
+    private List<byte[]> images;
     private String message;
     private List<String> tags;
     private List<String> categories;

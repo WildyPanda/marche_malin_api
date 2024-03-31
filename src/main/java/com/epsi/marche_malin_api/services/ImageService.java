@@ -9,6 +9,7 @@ import com.google.j2objc.annotations.AutoreleasePool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,6 +24,13 @@ public class ImageService {
         if(optPost.isPresent()){
             Posts posts = optPost.get();
             imageRepo.save(new Image(dto.getId_image(), dto.getImage(), posts));
+        }
+    }
+
+    public void DeleteAllByPost(Posts post){
+        List<Image> images = imageRepo.findAllByPost(post);
+        for(Image image : images){
+            imageRepo.delete(image);
         }
     }
 }

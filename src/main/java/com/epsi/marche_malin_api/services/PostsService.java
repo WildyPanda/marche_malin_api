@@ -38,7 +38,7 @@ public class PostsService {
             List<PostTag> tags = postTagRepo.findAllByIdPost(post);
             List<String> tagsNames = new ArrayList<>();
             tags.forEach((elt) -> tagsNames.add(elt.getId().getTag().getNameTag()));
-            return new GetPostDTO(post.getTitle(), post.getUser(), images, post.getMessage(), categoriesNames, tagsNames);
+            return new GetPostDTO(post.getIdPost(), post.getTitle(), post.getUser(), images, post.getMessage(), tagsNames, categoriesNames);
         }
         return null;
     }
