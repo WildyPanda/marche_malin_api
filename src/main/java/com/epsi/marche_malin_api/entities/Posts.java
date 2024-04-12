@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Posts {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_post")
     private Long idPost;
 

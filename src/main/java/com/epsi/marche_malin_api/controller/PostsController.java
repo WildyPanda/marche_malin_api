@@ -9,9 +9,13 @@ import com.epsi.marche_malin_api.services.ImageService;
 import com.epsi.marche_malin_api.services.PostCategoryService;
 import com.epsi.marche_malin_api.services.PostTagService;
 import com.epsi.marche_malin_api.services.PostsService;
+import com.google.firebase.database.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.HTML;
+import java.security.PublicKey;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -87,5 +91,15 @@ public class PostsController {
             imageRepo.save(new Image(null, image, post));
         }
         return "ok";
+    }
+
+    @GetMapping("getByTag/{tag}")
+    public List<Tags> getByTags(@PathVariable @NotNull String tag){
+        return postTagService.GetByTag(tag);
+    }
+
+    @PostMapping("getByTag/")
+    public List<Posts> getByTags(@RequestBody @NotNull List<Tags> tag){
+        return postTagService.findByTag(tag);
     }
 }
