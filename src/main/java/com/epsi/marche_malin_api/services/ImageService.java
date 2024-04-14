@@ -5,7 +5,6 @@ import com.epsi.marche_malin_api.entities.Image;
 import com.epsi.marche_malin_api.entities.Posts;
 import com.epsi.marche_malin_api.repositories.ImageRepo;
 import com.epsi.marche_malin_api.repositories.PostsRepo;
-import com.google.j2objc.annotations.AutoreleasePool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +31,9 @@ public class ImageService {
         for(Image image : images){
             imageRepo.delete(image);
         }
+    }
+
+    public Optional<Image> GetFirstOfPost(Posts post){
+        return imageRepo.findFirstByPost(post);
     }
 }

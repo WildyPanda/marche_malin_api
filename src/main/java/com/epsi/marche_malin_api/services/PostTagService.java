@@ -33,14 +33,14 @@ public class PostTagService {
         return tagsRepo.findByNomTag(tagInput);
     }
 
-    public List<Posts> findByTag(List<Tags> tags) {
+    public List<Posts> findByTag(List<String> tags) {
 
         List<Posts> postsWithAllTags = new ArrayList<>();
             List<PostTag> listEntity = postTagRepo.findAll();
             for (PostTag postTag : listEntity) {
 
-                Integer nbTag = tags.size();
-                Integer corresponding = 0;
+                int nbTag = tags.size();
+                int corresponding = 0;
 
                 Posts post = postTag.getId().getPost();
                 List<PostTag> postTagsList = postTagRepo.findAllByIdPost(post);
@@ -48,10 +48,10 @@ public class PostTagService {
                 for (PostTag i : postTagsList) {
                     listTags.add(i.getId().getTag());
                 }
-                Integer size = listTags.size();
+                int size = listTags.size();
                 for (Tags tag : listTags) {
-                    for (Tags tag2 : tags) {
-                        if (Objects.equals(tag.getNameTag(), tag2.getNameTag())) {
+                    for (String tag2Name : tags) {
+                        if (Objects.equals(tag.getNameTag(), tag2Name)) {
                             corresponding ++;
                         }
                     }

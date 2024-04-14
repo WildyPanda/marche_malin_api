@@ -42,4 +42,12 @@ public class PostsService {
         }
         return null;
     }
+
+    public List<Posts> findByName(String title){
+        return postsRepo.findByTitleContaining(title);
+    }
+
+    public List<Posts> findAll(){
+        return postsRepo.findAll();
+    }
 }

@@ -9,8 +9,5 @@ import java.util.List;
 
 public interface PostTagRepo extends JpaRepository<PostTag, PostTagId> {
     public List<PostTag> findAllByIdPost(Posts post);
-
-
-
     List<PostTag> findAllByIdTag(Tags tag);
 }
