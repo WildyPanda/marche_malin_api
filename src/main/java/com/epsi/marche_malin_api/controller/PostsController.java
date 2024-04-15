@@ -51,7 +51,7 @@ public class PostsController {
     public List<BasicPostDTO> GetUserPosts(@PathVariable("uuid") String uuid){
         Optional<Users> userOpt = usersRepo.findById(uuid);
         if(userOpt.isEmpty()){
-            return null;
+            return new ArrayList<>();
         }
         Users user = userOpt.get();
         List<Posts> posts = service.findUserPosts(user);
