@@ -39,10 +39,23 @@ public class PostsController {
     PostTagService postTagService;
     @Autowired
     PostCategoryService postCategoryService;
+    @Autowired
+    UsersRepo usersRepo;
 
     @GetMapping("/public/get/{id}")
     public GetPostDTO GetPost(@PathVariable Long id){
         return service.GetPostById(id);
+    }
+
+    @GetMapping("/public/getByUser/{uuid}")
+    public List<BasicPostDTO> GetUserPosts(@PathVariable("uuid") String uuid){
+        Optional<Users> userOpt = usersRepo.findById(uuid);
+        if(userOpt.isEmpty()){
+            return null;
+        }
+        Users user = userOpt.get();
+        List<Posts> posts = service.findUserPosts(user);
+        return PostsListToBasicPostList(posts);
     }
 
     @PostMapping("/add")
@@ -110,7 +123,6 @@ public class PostsController {
         boolean A = titlePosts == null;
         boolean B = tagPosts == null;
         boolean C = catPosts == null;
-        System.out.println(A + " : " + B + " : " + C);
         if(A && B && C)
             return PostsListToBasicPostList(service.findAll());
         else if(!A && B && C)
